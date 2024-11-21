@@ -1,0 +1,107 @@
+html {
+  background-color: white;
+}
+
+body {
+  width: 100%;
+  margin: auto;
+}
+
+.suggest-section, .search-section {
+  width: 80%;
+  min-width: 300px;
+  margin: auto;
+  max-width: 800px;
+  border: 1px solid black;
+}
+
+.search-section {
+  border: 1px solid black;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.content h3 {
+  text-align: center;
+}
+
+.option {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.checkboxes {
+  line-height: 2rem;
+  
+}
+
+.meal {
+  padding: 0 1rem;
+  min-width: 8rem;
+  flex: 2 0 8rem;
+}
+
+.ingrediences {
+  padding: 0 1rem;
+  min-width: 10rem;
+  flex: 3 0 10rem;
+}
+
+.search-filter {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#search {
+  margin: 1rem auto;
+  display: block;
+  width: 8rem;
+  font-size: 1.2rem;
+}
+
+input {
+  box-sizing: border-box;
+}
+
+#ing-list {
+  min-height: 8rem;
+}
+
+#search-ing, .search-filter li > button {
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 8px;
+  height: 1.5rem;
+  min-width: 4rem;
+  max-width: 18rem;
+}
+
+.search-filter li > button {
+  height: 1.5rem;
+  margin-top: -1px;
+  background-color: #f6f6f6;
+  text-decoration: none; 
+  font-size: 0.8rem;
+  color: black;
+  display: block;
+}
+
+#result {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: space-between;
+  flex: 1 0 32%;
+  row-gap: 1rem;
+}
+
+#result > li {
+  display: block;
+  min-width: 10rem;
+  text-align: center;
+}
