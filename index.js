@@ -51,9 +51,7 @@ function FilterFood(meal, ingrediences) {
     if (!Has(item, 'meal', translate[meal]) || Has(item, 'types', "type")) {
       return false
     }
-        console.log(ingrediences)
     for (const ing of ingrediences) {
-      console.log(ing)
       if (Has(item, "ingrediences", ing)) {
         return false
       }
@@ -114,11 +112,12 @@ function Menu(meal) {
   
 }
 
+const excluded = new Set()
+
 function Populate() {
   const listed = new Set()
   const ul = document.getElementById('ing-list');
   ul.innerHTML = ""
-  ul.style.display = "none"
   foodData.food.forEach(food => food.ingrediences?.forEach(
     ing => {
       if (!listed.has(ing)) {
@@ -127,6 +126,7 @@ function Populate() {
         li.appendChild(button)
         button.innerText = ing
         button.onclick = () => {
+          console.log("clicked")
           excluded.add(ing)
           Search()
         }
@@ -136,14 +136,12 @@ function Populate() {
     }
   ))
   Search()
-  ul.style.display = ""
 }
 
 Populate()
 
 const input = document.getElementById('search-ing').onkeyup = Search
 
-const excluded = new Set()
 
 function normalize(str) {
   return str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toUpperCase();
@@ -151,19 +149,19 @@ function normalize(str) {
 }
 
 function SearchFilter(search, target) {
-  if (!search) {
-    return false
-  }
-  
-  if (!normalize(target).includes(normalize(search))) {
+  if (excluded.has(target)) {
     return false
   }
 
-  if (excluded.has(target)) {
-    return false
-  } 
+  if (!search) {
+    return true
+  }
   
-  return true
+  if (normalize(target).includes(normalize(search))) {
+    return true
+  }
+
+  return false
 }
 
 function Search() {
