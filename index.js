@@ -12,6 +12,10 @@ function Concat(arrays) {
 }
 
 function Has(obj, key, value) {
+  if (!value) {
+    return true
+  }
+  
   const target = obj[key]
 
   if (Array.isArray(target)) {
@@ -42,9 +46,22 @@ document.getElementById("search").onclick = () => {
   })
 }
 
-function Filter(meal) {
-  return foodData.food.filter(item => Has(item, 'meal', translate[meal]) 
-                                     && !Has(item, 'types', "type"))
+function FilterFood(meal, ingrediences) {
+  return foodData.food.filter(item => {
+    if (!Has(item, 'meal', translate[meal]) || Has(item, 'types', "type")) {
+      return false
+    }
+        console.log(ingrediences)
+    for (const ing of ingrediences) {
+      console.log(ing)
+      if (Has(item, "ingrediences", ing)) {
+        return false
+      }
+    }
+
+    return true
+  })
+                               
 }
 
 function Lookup(meta, id) {
@@ -63,26 +80,13 @@ function Lookup(meta, id) {
   return null
 }
 
-function Equal(meta, id1, id2) {
-  if (typeof id1 == typeof id2) {
-    return id1 == id2
-  }
-
-  if (typeof id1 == "string") {
-    return id1 == Lookup(meta, id2).name
-  }
-  
-  if (typeof id2 == "string") {
-    return id2 == Lookup(meta, id1).name
-  }
-}
-
 function Resolve(base) {
   let included = [base]
   const dependency = getDependency(base)
+  const food = FilterFood('', excluded)
 
   return included.concat(dependency.map(type => {
-    const choice = foodData.food.filter(item => {
+    const choice = food.filter(item => {
       return Has(item, "types", type.name || type )
     })
     return RanArr(choice)
@@ -103,7 +107,7 @@ function getDependency(food) {
 }
 
 function Menu(meal) {
-  const foods = Filter(meal)
+  const foods = FilterFood(meal, excluded)
   const base = RanArr(foods)
 
   return Resolve(base)
@@ -123,7 +127,7 @@ function Populate() {
         li.appendChild(button)
         button.innerText = ing
         button.onclick = () => {
-          included.add(normalize(ing))
+          excluded.add(ing)
           Search()
         }
         ul.appendChild(li)
@@ -139,10 +143,10 @@ Populate()
 
 const input = document.getElementById('search-ing').onkeyup = Search
 
-const included = new Set()
+const excluded = new Set()
 
 function normalize(str) {
-  return str.normalize("NFD").toUpperCase();
+  return str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toUpperCase();
   
 }
 
@@ -151,11 +155,11 @@ function SearchFilter(search, target) {
     return false
   }
   
-  if (!target.includes(search)) {
+  if (!normalize(target).includes(normalize(search))) {
     return false
   }
 
-  if (included.has(target)) {
+  if (excluded.has(target)) {
     return false
   } 
   
@@ -164,7 +168,6 @@ function SearchFilter(search, target) {
 
 function Search() {
   const input = document.getElementById('search-ing');
-  const filter = normalize(input.value);
   const ul = document.getElementById('ing-list');
 
   let count = 1
@@ -172,7 +175,7 @@ function Search() {
   Array.from(ul.getElementsByTagName('li')).forEach( li => {
     const button = li.getElementsByTagName("button")[0];
     const txtValue = button.textContent || button.innerText;
-    if (SearchFilter(filter, normalize(txtValue)) && count <= 5) {
+    if (SearchFilter(input.value, txtValue) && count <= 5) {
       li.style.display = ""
       count += 1
     } else {

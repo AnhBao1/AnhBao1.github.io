@@ -107,6 +107,11 @@ const foodData = JSON.parse(`
     "id": 3,
     "name": "canh",
     "depend": [ "cơm", 1, 2 ]
+  },
+  {
+    "id": 4,
+    "name": "cơm",
+    "depend": [ 1, 2, 3 ]
   }
 ]
 }
