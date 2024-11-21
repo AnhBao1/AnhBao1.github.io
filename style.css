@@ -95,7 +95,7 @@ input {
   display: flex;
   flex-wrap: wrap;
   padding: 0;
-  justify-content: space-between;
+  justify-content: space-evenly;
   flex: 1 0 32%;
   row-gap: 1rem;
 }
