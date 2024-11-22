@@ -3,23 +3,15 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MenuDiet</title>
+    <title>MenuDiei</title>
     <link href="style.css" rel="stylesheet">
   </head>
   <body>
     <div class="title">
-      <h1>MenuDiet</h1>
+      <h1>MenuDiei</h1>
     </div>
     <section class="search-section">
       <div class="option">
-        <div class="ingrediences">
-          <h3>Nguyên Liệu</h3>
-          <p>Chọn để loại khỏi danh sách</p>
-          <div>
-            <input type="text" id="search-ing">
-            <ul id="ing-list" class="search-filter"></ul>
-          </div>
-        </div>
         <div class="meal">
           <h3>Bữa</h3>
           <div class = "checkboxes">
@@ -31,9 +23,18 @@
             <label for="evening">Tối</label><br><br>
           </div>
         </div>
+        <div class="outer">
+        <div class="ingrediences">
+          <h3>Nguyên Liệu</h3>
+          <p>Chọn để loại khỏi danh sách</p>
+          <div>
+            <div id="ing-list" class="search-filter"></div>
+          </div>
+        </div>
+        </div>
       </div>
       <div class="search-container">
-        <button id="search">Tìm</button>
+        <button id="search">Ngẫu Nhiên</button>
       </div>
     </section>
 

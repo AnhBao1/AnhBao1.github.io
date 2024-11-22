@@ -116,21 +116,20 @@ const excluded = new Set()
 
 function Populate() {
   const listed = new Set()
-  const ul = document.getElementById('ing-list');
-  ul.innerHTML = ""
+  const div = document.getElementById('ing-list');
+  div.innerHTML = ""
   foodData.food.forEach(food => food.ingrediences?.forEach(
     ing => {
       if (!listed.has(ing)) {
-        const li = document.createElement('li')
-        const button = document.createElement('button')
-        li.appendChild(button)
-        button.innerText = ing
-        button.onclick = () => {
-          console.log("clicked")
-          excluded.add(ing)
-          Search()
-        }
-        ul.appendChild(li)
+        const label = document.createElement('label')
+        label.className = "food"
+        label.textContent = ing
+        const checkbox = document.createElement('input')
+        checkbox.type = "checkbox"
+        checkbox.checked = true
+        label.appendChild(checkbox)
+        
+        div.appendChild(label)
       }
       listed.add(ing)
     }
@@ -139,9 +138,6 @@ function Populate() {
 }
 
 Populate()
-
-const input = document.getElementById('search-ing').onkeyup = Search
-
 
 function normalize(str) {
   return str.normalize("NFD").replace(/\p{Diacritic}/gu, "").toUpperCase();
@@ -165,21 +161,7 @@ function SearchFilter(search, target) {
 }
 
 function Search() {
-  const input = document.getElementById('search-ing');
   const ul = document.getElementById('ing-list');
 
-  let count = 1
 
-  Array.from(ul.getElementsByTagName('li')).forEach( li => {
-    const button = li.getElementsByTagName("button")[0];
-    const txtValue = button.textContent || button.innerText;
-    if (SearchFilter(input.value, txtValue) && count <= 5) {
-      li.style.display = ""
-      count += 1
-    } else {
-      li.style.display = "none"
-    }
-  })
-  
-  ul.style.visibility = "visible"
 }
