@@ -1,11 +1,13 @@
 :root {
-  --accent: #f08A22; 
-  --secondary: #ffBB40;
-  --background: #fff0e0;
-  --secondary-background: #ffe0b0;
+  --accent: #febb30;
+  --secondary: #fed060;
+  --background: #fff4e9;
+  --secondary-background: #faeadd;
   --text-color: #112020;
-  --text-accent: #f5f5f0;
+  --text-accent: #fffff5;
+  --text-weak: #505045d0;
 }
+
 
 html {
   background-color: var(--background);
@@ -14,11 +16,25 @@ html {
 
 body {
   width: 100%;
-  margin: auto;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .title {
-  text-align: center;
+  margin: 0;
+  position: relative;
+  display: block;
+  top: 0;
+  background: linear-gradient(80deg, var(--accent), var(--secondary));
+  color: var(--text-accent);
+  width: 100%;
+}
+
+.title h1 {
+  position: relative;
+  left: 44px;
+  margin: 0 auto;
 }
 
 button {
@@ -32,13 +48,20 @@ button:hover {
   background-color: var(--secondary);
 }
 
-.suggest-section, .search-section {
+.page-content {
   width: 80%;
+  padding: 0;
   min-width: 300px;
-  margin: auto;
+  margin: 0 auto;
   max-width: 800px;
+}
+
+.suggest-section, .search-section {
+  margin: 24px auto;
+  width: 100%;
   background-color: var(--secondary-background);
-  border: 1px solid black;
+  max-width: 800px;
+  border: 1px solid var(--text-weak);
   border-radius: 24px;
 }
 
@@ -55,15 +78,7 @@ button:hover {
 }
 
 .option {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: space-between;
-}
-
-.checkboxes {
-  line-height: 2rem;
-  
+  display: block;
 }
 
 .meal {
@@ -85,7 +100,7 @@ button:hover {
   padding: 0 1rem 1rem 1rem;
   min-width: 10rem;
   flex: 3 0 10rem;
-  overflow-y: auto; 
+  /* overflow-y: auto;  */
 }
 
 .search-filter {
@@ -96,22 +111,23 @@ button:hover {
 
 #search {
   position: absolute;
-  left: 40px;
+  right: 40px;
   top: 50%;
   transform: translate(0, -50%);
   display: block;
   width: 8rem;
-  font-size: 1.2rem;
+  padding: 0.2rem;
+  font-size: 1.1rem;
 }
 
 * {
   box-sizing: border-box;
   scrollbar-color: gray var(--secondary);
   scrollbar-width: thin;
+  transition: background-color 0.2s, border-color 0.15s;
 }
 
 #ing-list {
-  height: 8rem;
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
@@ -133,6 +149,8 @@ button:hover {
   position: relative;
   height: 40px;
   width: 100%;
+  background-color: var(--text-weak);
+  border-radius: 0 0 24px 24px;
 }
 
 .search-filter li {
@@ -158,6 +176,7 @@ button:hover {
   padding: 0;
   justify-content: space-evenly;
   flex: 1 0 100%;
+  align-content: flex-end;
   row-gap: 1rem;
 }
 
@@ -167,13 +186,17 @@ button:hover {
   text-align: center;
 }
 
-.food {
+.food, .meal-checkbox {
   padding: 0.2rem 0.5rem;
-  text-align: right;
+  box-shadow: 0px 1px 2px 0px #000000DE;
+  border-radius: 8px;
+  height: min-content;
+  text-align: center;
   display: inline-block;
   flex-grow: 0;
   font-size: 0.8rem;
-  border: 2px solid var(--secondary);
+  color: var(--text-weak);
+  /* border: 2px solid var(--secondary); */
   background-color: var(--background);
 }
 
@@ -184,17 +207,46 @@ button:hover {
   margin: 0;
 }
 
-.food span {
-  width: 100%;
+#result .food {
+  color: var(--text-color);
 }
 
-.food:has(input:checked) {
+.food:has(input:checked), .meal-checkbox:has(input:checked) {
   background-color: var(--accent);
   color: var(--text-accent);
   border-color: var(--text-color);
 }
 
-.food:has(input:hover) {
+.food:has(input:hover), .meal-checkbox:hover {
   background-color: var(--secondary);
   color: var(--text-accent);
+}
+
+ button:active {
+  background-color: var(--background);
+}
+
+.checkboxes {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 200px;
+  max-width: 400px;
+  justify-content: start;
+  column-gap: 10px;
+  padding: 0;
+}
+
+
+.meal-checkbox {
+  max-width: 6rem;
+  flex: 1 1 0;
+}
+
+.meal-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
 }

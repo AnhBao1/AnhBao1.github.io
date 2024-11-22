@@ -10,27 +10,29 @@
     <div class="title">
       <h1>MenuDiei</h1>
     </div>
+    <div class="page-content">
+    <h2>Lên thực đơn cùng MenuDiei</h2>
     <section class="search-section">
       <div class="option">
         <div class="meal">
-          <h3>Bữa</h3>
+          <h3>Chọn Bữa</h3>
           <div class = "checkboxes">
-            <input type="checkbox" id="morning" name="morning">
-            <label for="morning">Sáng</label><br>
-            <input type="checkbox" id="afternoon" name="afternoon">
-            <label for="afternoon">Trưa</label><br>
-            <input type="checkbox" id="evening" name="evening">
-            <label for="evening">Tối</label><br><br>
+            <label for="morning" class="meal-checkbox">Sáng
+              <input type="checkbox" id="morning" name="morning">
+            </label><br>
+            <label for="afternoon" class="meal-checkbox">Trưa
+              <input type="checkbox" id="afternoon" name="afternoon">
+            </label><br>
+            <label for="evening" class="meal-checkbox">Tối
+              <input type="checkbox" id="evening" name="evening">
+            </label><br><br>
           </div>
         </div>
-        <div class="outer">
         <div class="ingrediences">
-          <h3>Nguyên Liệu</h3>
-          <p>Chọn để đưa vào danh sách</p>
+          <h3>Chọn Nguyên Liệu</h3>
           <div>
             <div id="ing-list" class="search-filter"></div>
           </div>
-        </div>
         </div>
       </div>
       <div class="search-container">
@@ -47,7 +49,7 @@
         <p id="no-result">Không có kết quả (thử chọn nhiều nguyên liệu hơn)</p>
       </div>
     </section>
-
+    </div>
   </body>
   <script src="food.js"></script>
   <script src="index.js"></script>

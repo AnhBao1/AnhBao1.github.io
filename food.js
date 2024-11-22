@@ -162,7 +162,8 @@ const foodData = {
       id: 14,
       name: "mì xào bò",
       meal: [
-        "sáng"
+        "sáng",
+        "trưa"
       ],
       ingrediences: [
         "bò",
@@ -171,6 +172,53 @@ const foodData = {
       types: [
         "mì",
         "khô"
+      ]
+    },
+    {
+      id: 15,
+      name: "mì vịt tiềm",
+      meal: [
+        "sáng",
+        "tối"
+      ],
+      ingrediences: [
+        "mì",
+        "vịt"
+      ],
+      types: [
+        "mì",
+        "khô"
+      ]
+    },
+    {
+      id: 16,
+      name: "cánh gà chiên nước mắm",
+      meal: [
+        "trưa",
+        "tối"
+      ],
+      ingrediences: [
+        "gà",
+      ],
+      types: [
+        "gà",
+        "mặn"
+      ]
+    },
+    {
+      id: 17,
+      name: "hủ tiếu Nam Vang",
+      meal: [
+        "sáng",
+        "trưa"
+      ],
+      ingrediences: [
+        "hủ tiếu",
+        "heo",
+        "tôm"
+      ],
+      types: [
+        "nước",
       ]
     }
   ],
