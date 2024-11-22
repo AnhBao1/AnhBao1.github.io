@@ -1,6 +1,5 @@
-const result = document.getElementById('result')
 const meals = [ "morning", "afternoon", "evening" ]
-
+document.getElementById("no-result").style.display = "none"
 const translate = {
   morning: "sáng",
   afternoon: "trưa",
@@ -35,8 +34,16 @@ document.getElementById("search").onclick = () => {
     target = Object.keys(translate)
   }
   const food = Menu(RanArr(target))
+  const result = document.getElementById("result")
 
   result.innerHTML = ""
+  const no_result = document.getElementById("no-result")
+
+  if (food.length == 0) {
+    no_result.style.display = ""
+  } else {
+    no_result.style.display = "none"
+  }
 
   food.forEach(item => {
     const li = document.createElement('li')
@@ -53,11 +60,11 @@ function FilterFood(meal, ingrediences) {
     }
     for (const ing of ingrediences) {
       if (Has(item, "ingrediences", ing)) {
-        return false
+        return true
       }
     }
 
-    return true
+    return false
   })
                                
 }
@@ -81,18 +88,18 @@ function Lookup(meta, id) {
 function Resolve(base) {
   let included = [base]
   const dependency = getDependency(base)
-  const food = FilterFood('', excluded)
+  const food = FilterFood('', ingrediences)
 
   return included.concat(dependency.map(type => {
     const choice = food.filter(item => {
       return Has(item, "types", type.name || type )
     })
     return RanArr(choice)
-  }))
+  })).filter(i => i)
 }
 
 function getDependency(food) {
-  if (!food.hasOwnProperty("types")) {
+  if (!food || !food.hasOwnProperty("types")) {
     return []
   }
   
@@ -105,14 +112,14 @@ function getDependency(food) {
 }
 
 function Menu(meal) {
-  const foods = FilterFood(meal, excluded)
+  const foods = FilterFood(meal, ingrediences)
   const base = RanArr(foods)
 
   return Resolve(base)
   
 }
 
-const excluded = new Set()
+const ingrediences = new Set()
 
 function Populate() {
   const listed = new Set()
@@ -127,13 +134,12 @@ function Populate() {
         const checkbox = document.createElement('input')
         checkbox.onclick = () => {
           if (checkbox.checked) {
-            excluded.add(ing)
+            ingrediences.add(ing)
           } else {
-            excluded.delete(ing)
+            ingrediences.delete(ing)
           }
         }
         checkbox.type = "checkbox"
-        checkbox.checked = true
         label.appendChild(checkbox)
         
         div.appendChild(label)
@@ -152,7 +158,7 @@ function normalize(str) {
 }
 
 function SearchFilter(search, target) {
-  if (excluded.has(target)) {
+  if (ingrediences.has(target)) {
     return false
   }
 
