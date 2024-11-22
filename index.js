@@ -31,7 +31,7 @@ function RanArr(arr) {
 document.getElementById("search").onclick = () => {
   let target = meals.filter(meal => document.getElementById(meal).checked)
   if (target.length == 0) {
-    target = Object.keys(translate)
+    target = Object.values(translate)
   }
   const food = Menu(RanArr(target))
   const result = document.getElementById("result")
@@ -66,7 +66,7 @@ function FilterFood(meal, ingrediences) {
 
     return false
   })
-                               
+
 }
 
 function Lookup(meta, id) {
