@@ -125,6 +125,13 @@ function Populate() {
         label.className = "food"
         label.textContent = ing
         const checkbox = document.createElement('input')
+        checkbox.onclick = () => {
+          if (checkbox.checked) {
+            excluded.add(ing)
+          } else {
+            excluded.delete(ing)
+          }
+        }
         checkbox.type = "checkbox"
         checkbox.checked = true
         label.appendChild(checkbox)
